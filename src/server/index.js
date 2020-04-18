@@ -4,6 +4,7 @@ const app = express();
 const fetch = require('node-fetch');
 const cors = require('cors');
 const parser = require('body-parser');
+const port = process.env.PORT || 8080;
 
 app.use(parser.json());
 app.use(cors());
@@ -50,6 +51,6 @@ app.get("/plant/:id", (req, res) => {
 //   .then(res => res.json())
 // };
 
-app.listen(9000, () => {
-  console.log("Server is listening on port: 9000");
-});
+app.listen(port);
+
+console.log("Server started...");
