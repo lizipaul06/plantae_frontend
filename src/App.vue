@@ -49,7 +49,7 @@
 <script>
 
 
-import PlantService from './services/PlantService.js';
+
 import { eventBus } from './main.js';
 import PlantList from './components/PlantList.vue';
 import Search from './components/Search.vue';
@@ -122,11 +122,12 @@ export default {
 
   eventBus.$on('plant-selected', (plant) => {
     this.selectedPlant = plant
-    PlantService.getPlant(this.selectedPlant.id).then(res => this.plantDetailed = res)
+   fetch("http://trefle.io/api/plants/".concat(this.selectedPlant.id).concat(token)).then(res => this.plantDetailed = res)
   });
 
-  PlantService.getPlants().then(plantData => plantData[Math.floor(Math.random()* plantData.length)])
-  .then(plant => PlantService.getPlant(plant.id).then(res => this.randomPlant = res))
+  fetch("https://trefle.io/api/plants/"
+  .concat(token).concat("&page=1&complete_data=true&page_size=1953") ).then(plantData => plantData[Math.floor(Math.random()* plantData.length)])
+  .then(plant => fetch("http://trefle.io/api/plants/".concat(plant.id).concat(token).then(res => this.randomPlant = res))
 }
 }
 
