@@ -60,6 +60,7 @@ import PlantDetail from './components/PlantDetail'
 import WishList from './components/WishList'
 import Canvas from './components/Canvas'
 import RandomPlant from './components/RandomPlant'
+const token = require("./token.js");
 
 require('@/assets/css/style.css')
 
@@ -88,7 +89,8 @@ export default {
 
 
   mounted(){
-    PlantService.getPlants().then(plantData => this.plantData = plantData.sort(function (a, b){
+    fetch("https://trefle.io/api/plants/"
+    .concat(token).concat("&page=1&complete_data=true&page_size=1953") ).then(plantData => this.plantData = plantData.sort(function (a, b){
       if (a.common_name < b.common_name) {
         return -1;
       }
